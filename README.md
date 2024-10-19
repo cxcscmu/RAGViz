@@ -34,7 +34,7 @@ We currently have implemented both a implementation the following datasets:
   - Pile-CC dataset
 
 #### LLMs:
-Any model supported by HuggingFace](https://huggingface.co/) transformers library can be used as the LLM backbone. 
+Any model supported by [HuggingFace](https://huggingface.co/) transformers library can be used as the LLM backbone. 
 
 To apply vLLM for fast inference, the LLM backbone needs to be supported by vLLM. A list of vLLM supported model is available [here](https://docs.vllm.ai/en/latest/models/supported_models.html). 
 
