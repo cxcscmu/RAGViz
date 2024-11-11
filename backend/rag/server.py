@@ -1,4 +1,4 @@
-from transformers import LlamaTokenizer, LlamaForCausalLM, BitsAndBytesConfig
+from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer # LlamaTokenizer, LlamaForCausalLM, 
 import torch
 import numpy as np
 import os
@@ -11,21 +11,39 @@ import torch
 
 import uvicorn
 import json
+import time
 
 def load_model(model_name, tp_size=1):
-    llm = LLM(model_name, tensor_parallel_size=tp_size, device=torch.device("cuda:0"), gpu_memory_utilization=0.5)
+    if "minicpm" in model_name.lower(): 
+        llm = LLM(
+            model_name, 
+            trust_remote_code=True,
+            dtype='half', 
+            tensor_parallel_size=tp_size, 
+            device=torch.device("cuda:0"), 
+            gpu_memory_utilization=0.5
+        )
+    else: 
+        llm = LLM(model_name, tensor_parallel_size=tp_size, device=torch.device("cuda:0"), gpu_memory_utilization=0.5)
     return llm
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-llama_path = os.get_env("RAG_MODEL")
-tokenizer = LlamaTokenizer.from_pretrained(llama_path, local_files_only=True)
-hf_model = LlamaForCausalLM.from_pretrained(llama_path, local_files_only=True, device_map="auto", quantization_config=BitsAndBytesConfig(load_in_4bit=True), max_memory={0: "12GB"})
+model_path = os.getenv("RAG_MODEL")
+tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+hf_model = AutoModelForCausalLM.from_pretrained(
+    model_path, 
+    trust_remote_code=True, 
+    device_map="auto", 
+    quantization_config=BitsAndBytesConfig(load_in_4bit=True), 
+    max_memory={0: "12GB"}
+)
+
 
 torch.cuda.manual_seed(42)
 torch.manual_seed(42)
 
-model_name = os.get_env("RAG_MODEL")
+model_name = os.getenv("RAG_MODEL")
 model = load_model(model_name)
 
 app = FastAPI()
