@@ -13,7 +13,7 @@ A basic demonstration of RAGViz is available [here](https://www.youtube.com/embe
 The following are the system configurations of our RAGViz demonstration:
 - The [Pile-CC](https://github.com/EleutherAI/pile-cc) English documents are used for retrieval
 - Documents are partioned into 4 [DiskANN](https://github.com/microsoft/DiskANN/) indexes on separate nodes, each with ~20 million documents
-- Documents are embedded into feature vectors using [AnchorDR](https://github.com/yiqingxyq/AnchorDR)
+- Documents are embedded into feature vectors using [AnchorDR](https://github.com/yiqingxyq/AnchorDR). **To use [AnchorDR](https://github.com/yiqingxyq/AnchorDR) in RAGViz you must follow the installation instructions on the repo [here](https://github.com/yiqingxyq/AnchorDR) to ensure your Python environment is set up correctly. Do this after running `pip install -r backend/requirements.txt`. **
 - [LLaMa2](https://huggingface.co/docs/transformers/v4.34.0/en/model_doc/llama2) generation/attention output done with [vLLM](https://github.com/vllm-project/vllm) and [HuggingFace](https://huggingface.co/) transformers library
 - Frontend UI is adapted from [Lepton search engine](https://github.com/leptonai/search_with_lepton)
 
