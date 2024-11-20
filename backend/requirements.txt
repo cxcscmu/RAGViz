@@ -1,0 +1,10 @@
+torch
+vllm
+transformers
+fastapi
+uvicorn
+requests
+pydantic
+numpy
+bitsandbytes
+accelerate>=0.26.0
