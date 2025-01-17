@@ -2,6 +2,7 @@ import sys
 sys.path.append("/home/tevinw/ragviz/backend")
 
 import requests
+import os
 from helpers.ClueWeb22Api import ClueWeb22Api
 from helpers.concurrent_fetch import fetch_all
 from helpers.range_dictionary import create_range_dictionary, query_range_dictionary
